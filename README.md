@@ -3,7 +3,7 @@ cmespidey is a bash script that uses crackmapexec's share spider feature, but in
 ## how to use
 -> put your port 445 ip's to p445.txt file
 
--> add or remove desired file extensions in script (share_extensions line)
+-> add or remove desired file extensions or patterns in script (share_extensions line)
 
 -> adjust threads if you want (default: -t 80)
 
