@@ -11,5 +11,5 @@ cmespidey is a bash script that uses crackmapexec's share spider feature, but in
 -> config. >>> fixed prefix. it can be config.cfg, config.pkcs, config.deadass.. etc
 -> credentials, dbpass, cpassword >>> it can be both filename or matching pattern in file. intended use is matching pattern.
 ## example output
-![](https://raw.githubusercontent.com/crosscutsaw/cmespidey/main/output.PNG)
+![](https://raw.githubusercontent.com/crosscutsaw/cmespidey/main/cmespidey.PNG)
 *still not tested in customer active directory environment*
