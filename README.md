@@ -1,13 +1,11 @@
-## about cmespidey v1.1
-cmespidey is a bash script that uses crackmapexec's share spider feature, but in bulk.
+## about nxcspidey v1.0
+nxcspidey is a bash script that uses netexec's share spider feature, but in bulk.
 ## how to use
--> put your port 445 ip's to p445.txt file
+-> put your port 445 ips to p445.txt file
 
 -> add or remove desired file extensions or patterns in script (share_extensions line)
 
--> adjust threads if you want (default: -t 80)
-
--> execute smbspidey.sh
+-> execute nxcspidey.sh
 
 -> profit
 
@@ -18,6 +16,10 @@ cmespidey is a bash script that uses crackmapexec's share spider feature, but in
 
 -> credentials, dbpass, cpassword >>> it can be both filename or matching pattern in file. intended use is matching pattern.
 
+## warning for pattern search
+-> if you leave a pattern like "password" in share_extensions then your scan would take a much time. avoid pattern matching if you can.
+
 ## example output
-![](https://raw.githubusercontent.com/crosscutsaw/cmespidey/main/cmespidey.PNG)
+![](https://raw.githubusercontent.com/crosscutsaw/nxcsipdey/main/1111.PNG)
+![](https://raw.githubusercontent.com/crosscutsaw/nxcsipdey/main/2222.PNG)
 *still not tested in customer active directory environment*
