@@ -20,6 +20,6 @@ nxcspidey is a bash script that uses netexec's share spider feature, but in bulk
 -> if you leave a pattern like "password" in share_extensions then your scan would take a much time. avoid pattern matching if you can.
 
 ## example output
-![](https://raw.githubusercontent.com/crosscutsaw/nxcsipdey/main/1111.PNG)
-![](https://raw.githubusercontent.com/crosscutsaw/nxcsipdey/main/2222.PNG)
+![](https://raw.githubusercontent.com/crosscutsaw/nxcspidey/main/1111.PNG)
+![](https://raw.githubusercontent.com/crosscutsaw/nxcspidey/main/2222.PNG)
 *still not tested in customer active directory environment*
