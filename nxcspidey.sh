@@ -35,6 +35,6 @@ cat nxcspidey.txt | ack --passthru $extensions_pattern
 # nxcspidey 1.0
 # 
 # contact options
-# mail: https://vvmlist.github.io/contact.html
+# mail: https://blog.zurrak.com/contact.html
 # twitter: https://twitter.com/tasiyanci
 # linkedin: https://linkedin.com/in/aslanemreaslan
