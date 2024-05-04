@@ -18,7 +18,7 @@ if ! command -v nxc &> /dev/null || ! command -v netexec &> /dev/null; then
     echo -e "${bbred}netexec is not present.${reset}"
     echo ''
     echo -e "${bwhite}type y to download netexec.${reset}"
-    echo -e "${bwhite}type n to exit script, launch your virtualenv (if you have) then rerun script again.${reset}"
+    echo -e "${bwhite}type n to exit script, launch your virtualenv (if you have) then run script again.${reset}"
     read response1
         if [ "$response1" = "y" ]; then
             echo ''
@@ -58,7 +58,7 @@ echo -e "${bgreen}process is completed. $(date)${reset}"
 echo ''
 cat /tmp/nxcspidey/nxcspidey.txt | sed -r "s/($extensions_pattern)/\o033[30;42m\1\o033[0m/g" | sort -u
 
-# nxcspidey 1.1
+# nxcspidey v1.1
 # 
 # contact options
 # mail: https://blog.zurrak.com/contact.html
