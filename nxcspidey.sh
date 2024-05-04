@@ -56,7 +56,7 @@ done
 rm -rf /tmp/nxcspidey/nxcspidey_temp.txt
 echo -e "${bgreen}process is completed. $(date)${reset}"
 echo ''
-cat /tmp/nxcspidey/nxcspidey.txt | sed -r "s/($extensions_pattern)/\o033[31m\1\o033[39m/g" | sort -u
+cat /tmp/nxcspidey/nxcspidey.txt | sed -r "s/($extensions_pattern)/\o033[30;42m\1\o033[0m/g" | sort -u
 
 # nxcspidey 1.1
 # 
