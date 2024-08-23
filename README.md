@@ -1,4 +1,4 @@
-## about nxcspidey v1.1
+## about nxcspidey v1.2
 nxcspidey is a bash script that uses netexec's share spider feature, but in bulk.
 ## how to use
 -> put your port 445 ips to p445.txt file

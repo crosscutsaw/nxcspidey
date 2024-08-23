@@ -40,25 +40,29 @@ echo -e "${bgreen}starting nxcspidey. $(date)${reset}"
 echo ''
 mkdir /tmp/nxcspidey
 
-domain_user="uuuuuuuuuuuuuuu"
-domain_pass='ppppppppppppppp'
-domain_name="ddddddddddddddd" #not fqdn, enter short name.
+domain_user="uuuuuuuuuuuu"
+domain_pass='pppppppppppp'
+domain_name="dddddddddddd" #not fqdn, enter short name.
 share_extensions=".vhd .vbk .vmdk .cfg .config .conf credentials db. config. group groups pwd pass password dbpass dbpwd db_password db_pass sifre şifre cpassword"
 extensions_pattern=$(echo $share_extensions | grep -o '\S*\.[[:alnum:]]\S*' | tr '\n' '|' | sed 's/|$//')
 
 nxc smb p445.txt -u $domain_user -p $domain_pass -d $domain_name --shares > /tmp/nxcspidey/nxcspidey_temp.txt
 
-for i in $(egrep -e "(WRITE|READ)" /tmp/nxcspidey/nxcspidey_temp.txt | awk '{print $2}' | uniq); do
-	for j in $(egrep -e "(WRITE|READ)" /tmp/nxcspidey/nxcspidey_temp.txt | awk '{print $5}'); do
-		nxc smb $i -u $domain_user -p $domain_pass -d $domain_name --spider $j --pattern $share_extensions --content | grep size | sed 's/\(pattern\)/\o033[31m\1\o033[39m/' >> /tmp/nxcspidey/nxcspidey.txt
-	done	
-done
+lines=$(egrep -a -e "(WRITE|READ)" /tmp/nxcspidey/nxcspidey_temp.txt)
+
+while IFS= read -r line; do
+    p=$(echo "$line" | awk '{print $2}')
+    s=$(echo "$line" | awk '{print $5}')
+    
+    nxc smb $p -u $domain_user -p $domain_pass -d $domain_name --spider $s --pattern $share_extensions --content | grep size | sed 's/\(pattern\)/\o033[31m\1\o033[39m/' >> /tmp/nxcspidey/nxcspidey.txt
+done <<< "$lines"
+
 rm -rf /tmp/nxcspidey/nxcspidey_temp.txt
 echo -e "${bgreen}process is completed. $(date)${reset}"
 echo ''
 cat /tmp/nxcspidey/nxcspidey.txt | sed -r "s/($extensions_pattern)/\o033[30;42m\1\o033[0m/g" | sort -u
 
-# nxcspidey v1.1
+# nxcspidey 1.2
 # 
 # contact options
 # mail: https://blog.zurrak.com/contact.html
