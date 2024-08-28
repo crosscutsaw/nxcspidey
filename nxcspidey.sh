@@ -45,7 +45,7 @@ domain_name="dddddddddddd" #not fqdn, enter short name.
 share_extensions=".vhd .vbk .vmdk .cfg .config .conf credentials db. config. group groups pwd pass password dbpass dbpwd db_password db_pass sifre şifre cpassword"
 extensions_pattern=$(echo $share_extensions | grep -o '\S*\.[[:alnum:]]\S*' | tr '\n' '|' | sed 's/|$//')
 
-nxc smb clear/P445.txt -u $domain_user -p $domain_pass -d $domain_name --shares > /tmp/nxcspidey/nxcspidey_temp.txt
+nxc smb p445.txt -u $domain_user -p $domain_pass -d $domain_name --shares > /tmp/nxcspidey/nxcspidey_temp.txt
 
 echo ''
 echo -e "${bgreen}ended nxcspidey share enumerator. $(date)${reset}"
@@ -70,7 +70,6 @@ if [ "$response1" = "y" ]; then
         nxc smb $p -u $domain_user -p $domain_pass -d $domain_name --spider $s --pattern $share_extensions --only-files | grep size | sed 's/\(pattern\)/\o033[31m\1\o033[39m/' >> /tmp/nxcspidey/nxcspidey.txt
     done <<< "$lines"
 
-#rm -rf /tmp/nxcspidey/nxcspidey_temp.txt
     echo -e "${bgreen}process is completed. $(date)${reset}"
     echo ''
     cat /tmp/nxcspidey/nxcspidey.txt | sed -r "s/($extensions_pattern)/\o033[30;42m\1\o033[0m/g" | sort -u
@@ -88,7 +87,6 @@ elif [ "$response1" = "n" ]; then
         nxc smb $p -u $domain_user -p $domain_pass -d $domain_name --spider $s --pattern $share_extensions --content | grep size | sed 's/\(pattern\)/\o033[31m\1\o033[39m/' >> /tmp/nxcspidey/nxcspideycontent.txt
     done <<< "$lines"
 
-#rm -rf /tmp/nxcspidey/nxcspidey_temp.txt
     echo -e "${bgreen}process is completed. $(date)${reset}"
     echo ''
     cat /tmp/nxcspidey/nxcspideycontent.txt | sed -r "s/($extensions_pattern)/\o033[30;42m\1\o033[0m/g" | sort -u
