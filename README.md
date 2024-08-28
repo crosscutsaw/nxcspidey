@@ -1,7 +1,7 @@
-## about nxcspidey v1.2
+## about nxcspidey v1.3
 nxcspidey is a bash script that uses netexec's share spider feature, but in bulk.
 ## how to use
--> put your port 445 ips to p445.txt file
+-> put your port 445 ips to p445.txt file (same directory where nxcspidey sits on)
 
 -> add or remove desired file extensions or patterns in script (share_extensions line)
 
@@ -16,10 +16,11 @@ nxcspidey is a bash script that uses netexec's share spider feature, but in bulk
 
 -> credentials, dbpass, cpassword >>> it can be both filename or matching pattern in file. intended use is matching pattern.
 
-## warning for pattern search
--> if you leave a pattern like "password" in share_extensions then your scan would take a much time. avoid pattern matching if you can.
+## decide your scan
+-> extension scan just scans extensions in filenames. i.e if you leave ".conf" in your share_extensions line then you'd get; "apache.conf", "web.config" and "style.configuration" in your results.
 
-## example output
-![](https://raw.githubusercontent.com/crosscutsaw/nxcspidey/main/1111.PNG)
-![](https://raw.githubusercontent.com/crosscutsaw/nxcspidey/main/2222.PNG)
-*still not tested in customer active directory environment*
+![](https://raw.githubusercontent.com/crosscutsaw/nxcspidey/main/n1.PNG)
+
+-> content scan scans extensions in filenames and content inside them. if you have no access to gui then it's a best option to enumerate. because of scanning content, it'd take a lot of time. even you'd get netbios timeout errors.
+
+![](https://raw.githubusercontent.com/crosscutsaw/nxcspidey/main/n2.PNG)
