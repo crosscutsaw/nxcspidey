@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#enable screen scrolling by executing below
+#echo 'termcapinfo xterm* ti@:te@' >> /etc/screenrc
+
 bblue='\033[1;34m'
 bbred='\033[1;31m'
 bgreen='\033[1;32m'
@@ -50,11 +53,10 @@ nxc smb p445.txt -u $domain_user -p $domain_pass -d $domain_name --shares > /tmp
 echo ''
 echo -e "${bgreen}ended nxcspidey share enumerator. $(date)${reset}"
 
-#ask user if they want to spider files
 echo ''
-echo -e "${bgreen}do you want extension scan or content scan?${reset}"
-echo -e "t${bwhite}ype y to extension scan"
-echo -e "type n to content scan${reset}"
+echo -e "${bgreen}do you want extension scan or extension+content scan?${reset}"
+echo -e "${bwhite}type y to extension scan"
+echo -e "type n to extension+content scan${reset}"
 read response1
 
 if [ "$response1" = "y" ]; then
@@ -76,7 +78,7 @@ if [ "$response1" = "y" ]; then
     
 elif [ "$response1" = "n" ]; then
     echo ''
-    echo -e "${bgreen}starting nxcspidey content scan. $(date)${reset}"
+    echo -e "${bgreen}starting nxcspidey extension+content scan. $(date)${reset}"
     echo ''
     lines=$(egrep -a -e "(WRITE|READ)" /tmp/nxcspidey/nxcspidey_temp.txt)
 
