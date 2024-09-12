@@ -42,13 +42,13 @@ echo ''
 echo -e "${bgreen}starting nxcspidey share enumerator. $(date)${reset}"
 mkdir /tmp/nxcspidey
 
-domain_user="uuuuuuuuuuuu"
-domain_pass='pppppppppppp'
-domain_name="dddddddddddd" #not fqdn, enter short name.
+domain_user="uuuu"
+domain_pass='pppp'
+domain_name="dddd" #not fqdn, enter short name.
 share_extensions=".vhd .vbk .vmdk .cfg .config .conf credentials db. config. group groups pwd pass password dbpass dbpwd db_password db_pass sifre şifre cpassword"
 extensions_pattern=$(echo $share_extensions | grep -o '\S*\.[[:alnum:]]\S*' | tr '\n' '|' | sed 's/|$//')
 
-nxc smb p445.txt -u $domain_user -p $domain_pass -d $domain_name --shares > /tmp/nxcspidey/nxcspidey_temp.txt
+nxc smb p445.txt -u $domain_user -p $domain_pass -d $domain_name --shares | egrep -a -v -e "WsusContent|CertEnroll" > /tmp/nxcspidey/nxcspidey_temp.txt
 
 echo ''
 echo -e "${bgreen}ended nxcspidey share enumerator. $(date)${reset}"
