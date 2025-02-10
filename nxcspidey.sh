@@ -10,7 +10,7 @@ bwhite='\033[1;37m'
 reset='\033[0m'
 
 echo ''
-echo -e "${bblue}nxcspidey v1.3${reset}"
+echo -e "${bblue}nxcspidey v1.4${reset}"
 echo ''
 
 echo -e "${bbred}removing old files if they are exist or not.${reset}"
@@ -48,7 +48,8 @@ domain_name="dddd" #not fqdn, enter short name.
 share_extensions=".vhd .vbk .vmdk .cfg .config .conf credentials db. config. group groups pwd pass password dbpass dbpwd db_password db_pass sifre şifre cpassword"
 extensions_pattern=$(echo $share_extensions | grep -o '\S*\.[[:alnum:]]\S*' | tr '\n' '|' | sed 's/|$//')
 
-nxc smb p445.txt -u $domain_user -p $domain_pass -d $domain_name --shares | egrep -a -v -e "WsusContent|CertEnroll" > /tmp/nxcspidey/nxcspidey_temp.txt
+nxc smb p445.txt -u $domain_user -p $domain_pass -d $domain_name --shares > /tmp/nxcspidey/nxcspidey_temp.txt
+egrep -a -i -v "(admin$|c$|certenroll|ipc$|netlogon|sysvol|\busers\b|wsuscontent|print$)" /tmp/nxcspidey/nxcspidey_temp.txt > /tmp/nxcspidey/nxcspidey_temp2.txt
 
 echo ''
 echo -e "${bgreen}ended nxcspidey share enumerator. $(date)${reset}"
@@ -63,13 +64,13 @@ if [ "$response1" = "y" ]; then
     echo ''
     echo -e "${bgreen}starting nxcspidey extension scan. $(date)${reset}"
     echo ''
-    lines=$(egrep -a -e "(WRITE|READ)" /tmp/nxcspidey/nxcspidey_temp.txt)
+    lines=$(egrep -a -e "(WRITE|READ)" /tmp/nxcspidey/nxcspidey_temp2.txt)
 
     while IFS= read -r line; do
         p=$(echo "$line" | awk '{print $2}')
-        s=$(echo "$line" | awk '{print $5}')
+        s=$(echo "$line" | sed -E 's/^\S+\s+\S+\s+\S+\s+\S+\s+(.+?)\s+(READ|WRITE|READ,WRITE).*$/\1/' | sed 's/[[:space:]]*$//')
     
-        nxc smb $p -u $domain_user -p $domain_pass -d $domain_name --spider $s --pattern $share_extensions --only-files | grep size | sed 's/\(pattern\)/\o033[31m\1\o033[39m/' >> /tmp/nxcspidey/nxcspidey.txt
+        nxc smb $p -u $domain_user -p $domain_pass -d $domain_name --spider "$s" --pattern $share_extensions --only-files | grep size | sed 's/\(pattern\)/\o033[31m\1\o033[39m/' >> /tmp/nxcspidey/nxcspidey.txt
     done <<< "$lines"
 
     echo -e "${bgreen}process is completed. $(date)${reset}"
@@ -80,7 +81,7 @@ elif [ "$response1" = "n" ]; then
     echo ''
     echo -e "${bgreen}starting nxcspidey extension+content scan. $(date)${reset}"
     echo ''
-    lines=$(egrep -a -e "(WRITE|READ)" /tmp/nxcspidey/nxcspidey_temp.txt)
+    lines=$(egrep -a -e "(WRITE|READ)" /tmp/nxcspidey/nxcspidey_temp2.txt)
 
     while IFS= read -r line; do
         p=$(echo "$line" | awk '{print $2}')
@@ -98,7 +99,7 @@ else
     exit
 fi
 
-# nxcspidey 1.3
+# nxcspidey 1.4
 # 
 # contact options
 # mail: https://blog.zurrak.com/contact.html
