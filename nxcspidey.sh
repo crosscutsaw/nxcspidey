@@ -10,11 +10,23 @@ bwhite='\033[1;37m'
 reset='\033[0m'
 
 echo ''
-echo -e "${bblue}nxcspidey v1.4${reset}"
+echo -e "${bblue}nxcspidey v1.5${reset}"
 echo ''
 
 echo -e "${bbred}removing old files if they are exist or not.${reset}"
 rm -rf /tmp/nxcspidey
+
+if [ -d "/tmp/nxcspidey" ]; then
+    echo ''
+    echo -e "${bbred}cannot delete old files because you have no privileges against $(ls -ld /tmp/nxcspidey | awk '{print $3}').${reset}"
+    echo ''
+    echo -e "${bwhite}please switch to root or execute script with sudo if you have certain privileges.${reset}"
+    echo ''
+    echo -e "${bwhite}or execute \"${bgreen}sed -i 's|/tmp/nxcspidey|/tmp/nxcspidey2|g' $(pwd)/nxcspidey.sh${reset}${bwhite}\" command to change nxcspidey's hardcoded working directory.${reset}"
+    exit
+else
+    :
+fi
 echo ''
 
 if ! command -v nxc &> /dev/null || ! command -v netexec &> /dev/null; then
@@ -99,7 +111,7 @@ else
     exit
 fi
 
-# nxcspidey 1.4
+# nxcspidey 1.5
 # 
 # contact options
 # mail: https://blog.zurrak.com/contact.html
